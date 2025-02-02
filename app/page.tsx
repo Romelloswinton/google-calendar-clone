@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/components/header/Header";
-import MainView from "@/components/MainView";
+import { MainView } from "@/components/layout/MainView";
 
 export default function Home() {
   return (

@@ -1,17 +1,15 @@
-import React, { Fragment, useMemo } from "react";
+import React, { useMemo } from "react";
 import dayjs from "dayjs";
 import { useDateStore } from "@/lib/useDateStore";
-import { CalendarEventType, useEventStore } from "@/lib/useEventStore";
-import MonthViewBox from "@/components/month-view-box";
+import { useEventManagement } from "@/lib/hooks/useEventManagement";
+import { CalendarEventType } from "@/lib/useEventStore";
+import { CalendarCell } from "./CalendarCell";
 
-export default function MonthView() {
+export function CalendarGrid() {
   const { twoDMonthArray, userSelectedDate, selectedMonthIndex } =
     useDateStore();
-  const { events } = useEventStore();
+  const { events } = useEventManagement();
 
-  console.table(twoDMonthArray);
-
-  // Precompute event mapping before rendering
   const eventsByDay = useMemo(() => {
     return events.reduce(
       (acc, event) => {
@@ -27,14 +25,14 @@ export default function MonthView() {
     <section className="grid grid-cols-7 grid-rows-5 lg:h-[100vh]">
       {twoDMonthArray.map((row, i) =>
         row.map((day, index) => {
-          if (!day) return <div key={index} className="empty-day"></div>; // Handle null days
+          if (!day) return <div key={index} className="empty-day" />;
 
           const dayKey = day.format("YYYY-MM-DD");
           const dayEvents = eventsByDay[dayKey] || [];
 
           return (
-            <MonthViewBox
-              key={dayKey} // Use dayKey for a stable and unique key
+            <CalendarCell
+              key={dayKey}
               day={day}
               rowIndex={i}
               events={dayEvents}

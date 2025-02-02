@@ -1,19 +1,18 @@
 import dayjs from "dayjs";
-import { EventRenderer } from "./event-renderer";
-import { CalendarEventType, useEventStore } from "@/lib/useEventStore";
+import { CalendarEventType } from "@/lib/useEventStore";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
   handleAnimationComplete,
   handleClose,
-  handlePopoverClick,
   zoom,
 } from "@/lib/eventHandlers";
-import { Button } from "../ui/button";
-
+import { EventRenderer } from "./EventRenderer";
+import { Button } from "@/components/ui/button";
 export default function EventListPopover({
   onClose,
   isOpen,
+
   day,
   events,
 }: {

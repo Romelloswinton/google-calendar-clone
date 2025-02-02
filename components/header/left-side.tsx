@@ -3,7 +3,6 @@ import React from "react";
 import { Button } from "../ui/button";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import dayjs from "dayjs";
-import { useViewStore } from "@/lib/useViewStore";
 import { useDateStore } from "@/lib/useDateStore";
 
 export default function HeaderLeft() {

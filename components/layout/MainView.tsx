@@ -1,26 +1,26 @@
 "use client";
 import { useEffect } from "react";
+import { CalendarGrid } from "../calendar/grid/CalendarGrid";
+import { useEventStore, CalendarEventType } from "@/lib/useEventStore";
+import { useDateStore } from "@/lib/useDateStore";
+import { useEventManagement } from "@/lib/hooks/useEventManagement";
+import CreateEventPopover from "@/components/popovers/events/CreateEventPopover";
+import EventListPopover from "@/components/popovers/events/EventListPopover";
+import EventSummaryPopover from "@/components/popovers/events/EventSummaryPopover";
 import dayjs from "dayjs";
 
-import EventPopover from "./EventPopover/EventPopover";
-import EventListPopover from "./EventPopover/event-list-popover";
-import EventSummaryPopover from "./EventPopover/event-summary-popover";
-import { CalendarEventType, useEventStore } from "@/lib/useEventStore";
-import { useDateStore } from "@/lib/useDateStore";
-import MonthView from "@/components/month-view";
-
-export default function MainView() {
+export function MainView() {
   const {
     closePopover,
     isPopoverOpen,
     isEventSummaryOpen,
     closeEventSummary,
     selectedEvent,
-    events,
-    setEvents,
     isEventListPopoverOpen,
     closeEventListPopover,
     eventListDay,
+    events,
+    setEvents,
   } = useEventStore();
 
   const { userSelectedDate } = useDateStore();
@@ -29,11 +29,13 @@ export default function MainView() {
   useEffect(() => {
     const savedEvents = localStorage.getItem("events");
     if (savedEvents) {
-      const parsedEvents: CalendarEventType[] = JSON.parse(savedEvents);
-      const updatedEvents = parsedEvents.map((event) => ({
-        ...event,
-        date: dayjs(event.date), // Ensure proper conversion to Dayjs
-      }));
+      const parsedEvents = JSON.parse(savedEvents);
+      const updatedEvents = parsedEvents.map(
+        (event: Omit<CalendarEventType, "date"> & { date: string }) => ({
+          ...event,
+          date: dayjs(event.date),
+        }),
+      );
       setEvents(updatedEvents);
     }
   }, [setEvents]);
@@ -45,15 +47,16 @@ export default function MainView() {
     }
   }, [events]);
 
+  console.log(" render - isPopoverOpen:", isPopoverOpen);
+
   return (
     <div className="flex">
       <div className="w-full flex-1">
-        <MonthView />
+        <CalendarGrid />
       </div>
 
-      {/* Popovers */}
       {isPopoverOpen && (
-        <EventPopover
+        <CreateEventPopover
           isOpen={isPopoverOpen}
           onClose={closePopover}
           date={userSelectedDate.format("YYYY-MM-DD")}

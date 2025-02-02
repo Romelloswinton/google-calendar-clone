@@ -1,6 +1,4 @@
-import { HiOutlineUsers, HiOutlineMenuAlt2 } from "react-icons/hi";
-import { Input } from "../../ui/input";
-
+import { Input } from "@/components/ui/input";
 interface InputFieldProps {
   type: string;
   name: string;
