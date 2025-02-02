@@ -1,8 +1,8 @@
 "use client";
 import { useEffect } from "react";
 import { CalendarGrid } from "../calendar/grid/CalendarGrid";
-import { useEventStore, CalendarEventType } from "@/lib/useEventStore";
-import { useDateStore } from "@/lib/useDateStore";
+import { useEventStore, CalendarEventType } from "@/lib/stores/eventStore";
+import { useDateStore } from "@/lib/stores/dateStore";
 import { useEventManagement } from "@/lib/hooks/useEventManagement";
 import CreateEventPopover from "@/components/popovers/events/CreateEventPopover";
 import EventListPopover from "@/components/popovers/events/EventListPopover";

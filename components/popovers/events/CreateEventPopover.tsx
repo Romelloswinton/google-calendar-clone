@@ -1,6 +1,6 @@
 import React from "react";
 import { PopoverLayout } from "../layout/PopoverLayout";
-import { EventForm } from "./EventForm";
+import { EventForm } from "./form/EventForm";
 import { useEventForm } from "@/lib/hooks/useEventForm";
 import dayjs from "dayjs";
 

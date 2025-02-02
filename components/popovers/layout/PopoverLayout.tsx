@@ -1,8 +1,11 @@
 import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
-import { HiOutlineMenuAlt4 } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
-import { handleClose, handlePopoverClick, zoom } from "@/lib/eventHandlers";
+import {
+  handleClose,
+  handlePopoverClick,
+  zoom,
+} from "@/lib/utils/eventHandlers";
 import { Button } from "@/components/ui/button";
 
 interface PopoverLayoutProps {
@@ -40,8 +43,7 @@ export function PopoverLayout({
             exit="exit"
             variants={zoom}
           >
-            <div className="mb-2 flex items-center justify-between rounded-md bg-slate-100 p-1">
-              <HiOutlineMenuAlt4 />
+            <div className="mb-2 flex items-center justify-end rounded-md bg-slate-100 p-1">
               <Button variant="ghost" size="icon" onClick={handleCloseClick}>
                 <IoCloseSharp className="h-4 w-4" />
               </Button>

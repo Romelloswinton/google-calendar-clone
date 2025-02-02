@@ -2,10 +2,10 @@
 // Update imports to match new paths
 import { useState } from "react";
 import dayjs from "dayjs";
-import { CalendarEventType, useEventStore } from "@/lib/useEventStore";
-import { handleAnimationComplete } from "@/lib/eventHandlers";
+import { CalendarEventType, useEventStore } from "@/lib/stores/eventStore";
+import { handleAnimationComplete } from "@/lib/utils/eventHandlers";
 import { usePopover } from "@/lib/hooks/usePopover";
-import { EventForm } from "./EventForm";
+import { EventForm } from "./form/EventForm";
 import { PopoverLayout } from "../layout/PopoverLayout";
 import { Button } from "@/components/ui/button";
 

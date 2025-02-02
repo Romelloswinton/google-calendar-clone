@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import dayjs from "dayjs";
-import { useDateStore } from "@/lib/useDateStore";
+import { useDateStore } from "@/lib/stores/dateStore";
 
 export default function HeaderLeft() {
   const todaysDate = dayjs();

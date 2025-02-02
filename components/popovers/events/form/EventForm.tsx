@@ -1,12 +1,12 @@
 import React from "react";
 import { HiOutlineMenuAlt2, HiOutlineUsers } from "react-icons/hi";
 
-import Checkbox from "./form-components/Checkbox";
+import Checkbox from "./components/Checkbox";
 import { useEventForm } from "@/lib/hooks/useEventForm";
 import { Button } from "@/components/ui/button";
-import InputField from "./form-components/InputField";
-import TimeInput from "./form-components/TimeInput";
-import { ColorPicker } from "./form-components/ColorPicker";
+import InputField from "./components/InputField";
+import TimeInput from "./components/TimeInput";
+import { ColorPicker } from "./components/ColorPicker";
 type FormFields = keyof ReturnType<typeof useEventForm>["formData"];
 
 interface EventFormProps {

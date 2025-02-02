@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { getMonth } from "./getTime";
+import { getMonth } from "../utils/getTime";
 
 interface DateStoreType {
   userSelectedDate: Dayjs;

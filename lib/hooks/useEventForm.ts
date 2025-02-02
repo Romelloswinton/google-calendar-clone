@@ -1,6 +1,6 @@
 import { useState } from "react";
 import dayjs from "dayjs";
-import { useEventStore, CalendarEventType } from "@/lib/useEventStore";
+import { useEventStore, CalendarEventType } from "@/lib/stores/eventStore";
 
 export const useEventForm = (date: string, onClose: () => void) => {
   const { addEvent } = useEventStore();

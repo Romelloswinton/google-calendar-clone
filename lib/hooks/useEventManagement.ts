@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import dayjs from "dayjs";
-import { CalendarEventType, useEventStore } from "@/lib/useEventStore";
+import { CalendarEventType, useEventStore } from "@/lib/stores/eventStore";
 
 export const useEventManagement = () => {
   const { events, setEvents } = useEventStore();

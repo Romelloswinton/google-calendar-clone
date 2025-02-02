@@ -1,10 +1,10 @@
 import dayjs from "dayjs";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { calculateVisibleEventCount, cn } from "@/lib/utils";
-import { CalendarEventType, useEventStore } from "@/lib/useEventStore";
-import { useDateStore } from "@/lib/useDateStore";
+import { calculateVisibleEventCount, cn } from "@/lib/utils/utils";
+import { CalendarEventType, useEventStore } from "@/lib/stores/eventStore";
+import { useDateStore } from "@/lib/stores/dateStore";
 import { CellHeader } from "./CellHeader";
-import { EventRenderer } from "@/components/popovers/events/EventRenderer";
+import { EventRenderer } from "@/components/calendar/events/EventRenderer";
 
 interface CalendarCellProps {
   day: dayjs.Dayjs | null;

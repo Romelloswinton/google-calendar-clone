@@ -1,4 +1,4 @@
-import { CalendarEventType, useEventStore } from "@/lib/useEventStore";
+import { CalendarEventType, useEventStore } from "@/lib/stores/eventStore";
 import React from "react";
 
 export function EventRenderer({ events }: { events: CalendarEventType[] }) {

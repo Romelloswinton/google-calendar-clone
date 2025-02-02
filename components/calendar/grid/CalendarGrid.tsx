@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import dayjs from "dayjs";
-import { useDateStore } from "@/lib/useDateStore";
+import { useDateStore } from "@/lib/stores/dateStore";
 import { useEventManagement } from "@/lib/hooks/useEventManagement";
-import { CalendarEventType } from "@/lib/useEventStore";
+import { CalendarEventType } from "@/lib/stores/eventStore";
 import { CalendarCell } from "./CalendarCell";
 
 export function CalendarGrid() {
