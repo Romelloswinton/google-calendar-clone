@@ -8,8 +8,6 @@ export const useEventForm = (date: string, onClose: () => void) => {
     title: "",
     color: "",
     isAllDay: false,
-    guests: "",
-    description: "",
     startTime: "",
     endTime: "",
   });
@@ -19,8 +17,6 @@ export const useEventForm = (date: string, onClose: () => void) => {
       title: "",
       color: "",
       isAllDay: false,
-      guests: "",
-      description: "",
       startTime: "",
       endTime: "",
     });
@@ -33,7 +29,7 @@ export const useEventForm = (date: string, onClose: () => void) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.title && formData.description) {
+    if (formData.title) {
       const newEvent: CalendarEventType = {
         id: crypto.randomUUID(),
         date: dayjs(date),

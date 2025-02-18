@@ -46,10 +46,10 @@ export default function EventSummaryPopover({
   return (
     <PopoverLayout
       isOpen={isOpen}
-      isVisible={isVisible}
+      isVisible={true}
       onClose={onClose}
       title="Event Details"
-      subtitle={dayjs(event.date).format("dddd, MMMM D, YYYY")}
+      day={dayjs(event.date)}
     >
       <div className="flex flex-col">
         <EventForm
@@ -62,17 +62,17 @@ export default function EventSummaryPopover({
           hideSubmitButton
         />
 
-        <div className="p-6">
+        <div className="p-2">
           <div className="flex justify-between gap-2">
             <Button
-              className="w-full bg-green-100 text-green-900 hover:bg-green-100"
+              className="w-full border border-black bg-green-100 text-green-900 hover:bg-green-100"
               onClick={handleSave}
             >
               Save
             </Button>
             <Button
               variant="destructive"
-              className="w-full text-black hover:text-black"
+              className="w-full border border-black text-black hover:text-black"
               onClick={handleDelete}
             >
               Delete

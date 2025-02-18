@@ -9,7 +9,6 @@ import { EventRenderer } from "@/components/calendar/events/EventRenderer";
 interface CalendarCellProps {
   day: dayjs.Dayjs | null;
   rowIndex: number;
-
   events: CalendarEventType[];
   isInCurrentMonth: boolean;
   isPastDate: boolean;
@@ -47,7 +46,6 @@ export function CalendarCell(props: CalendarCellProps) {
 
   const handleAddEventClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log("Add event clicked");
     setDate(props.day!);
     openPopover();
   };

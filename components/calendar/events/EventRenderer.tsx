@@ -16,7 +16,7 @@ export function EventRenderer({ events }: { events: CalendarEventType[] }) {
               e.stopPropagation();
               openEventSummary(event);
             }}
-            className={`line-clamp-1 flex w-[90%] cursor-pointer items-center space-x-2 rounded-sm p-1 text-sm ${eventClasses}`}
+            className={`line-clamp-1 flex w-[90%] cursor-pointer items-center space-x-2 rounded-sm p-2.5 text-sm ${eventClasses}`}
             style={{
               backgroundColor: event.isAllDay ? event.color : "transparent",
               flexShrink: 0,
@@ -31,7 +31,7 @@ export function EventRenderer({ events }: { events: CalendarEventType[] }) {
                   className="h-3 w-3 rounded-full"
                   style={{ backgroundColor: event.color }}
                 ></div>
-                <span className="text-xs text-gray-500">{event.startTime}</span>
+                <span className="text-sm text-gray-500">{event.startTime}</span>
               </>
             )}
 

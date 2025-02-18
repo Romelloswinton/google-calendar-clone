@@ -24,9 +24,9 @@ const Checkbox: React.FC<CheckboxProps> = ({
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           onChange(e.target.checked)
         }
-        className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
+        className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-black"
       />
-      <label htmlFor={id} className="text-sm text-gray-700">
+      <label htmlFor={id} className="text-sm font-semibold text-gray-800">
         {label}
       </label>
     </div>

@@ -30,14 +30,16 @@ export default function TimeInput({
 
   return (
     <div className="flex flex-col">
-      <label className="mb-1 text-sm text-gray-700">{label}</label>
+      <label className="mb-1 text-sm font-semibold text-gray-800">
+        {label}
+      </label>
       <input
         type="time"
         value={value}
         onChange={handleTimeChange}
         min={min}
         max={max}
-        className="w-32 rounded-md border-2 border-gray-300 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-[155px] rounded-md border border-black px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </div>
   );

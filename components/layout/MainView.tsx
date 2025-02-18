@@ -50,35 +50,39 @@ export function MainView() {
   console.log(" render - isPopoverOpen:", isPopoverOpen);
 
   return (
-    <div className="flex">
-      <div className="w-full flex-1">
-        <CalendarGrid />
+    <div className="flex justify-center">
+      <div className="w-full max-w-[1500px]">
+        <div className="flex">
+          <div className="w-full flex-1">
+            <CalendarGrid />
+          </div>
+
+          {isPopoverOpen && (
+            <CreateEventPopover
+              isOpen={isPopoverOpen}
+              onClose={closePopover}
+              date={userSelectedDate.format("YYYY-MM-DD")}
+            />
+          )}
+
+          {isEventSummaryOpen && selectedEvent && (
+            <EventSummaryPopover
+              isOpen={isEventSummaryOpen}
+              onClose={closeEventSummary}
+              event={selectedEvent}
+            />
+          )}
+
+          {isEventListPopoverOpen && eventListDay && (
+            <EventListPopover
+              events={events}
+              day={eventListDay}
+              isOpen={isEventListPopoverOpen}
+              onClose={closeEventListPopover}
+            />
+          )}
+        </div>
       </div>
-
-      {isPopoverOpen && (
-        <CreateEventPopover
-          isOpen={isPopoverOpen}
-          onClose={closePopover}
-          date={userSelectedDate.format("YYYY-MM-DD")}
-        />
-      )}
-
-      {isEventSummaryOpen && selectedEvent && (
-        <EventSummaryPopover
-          isOpen={isEventSummaryOpen}
-          onClose={closeEventSummary}
-          event={selectedEvent}
-        />
-      )}
-
-      {isEventListPopoverOpen && eventListDay && (
-        <EventListPopover
-          events={events}
-          day={eventListDay}
-          isOpen={isEventListPopoverOpen}
-          onClose={closeEventListPopover}
-        />
-      )}
     </div>
   );
 }

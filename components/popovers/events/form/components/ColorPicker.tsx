@@ -7,17 +7,17 @@ interface ColorPickerProps {
 }
 
 export function ColorPicker({ selectedColor, setColor }: ColorPickerProps) {
-  const colors = ["red", "green", "skyblue"]; // Use specified colors
+  const colors = ["red", "green", "lightblue"];
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="-mb-2 flex items-center gap-2">
       {colors.map((color) => (
         <button
           key={color}
           type="button"
           className={cn(
-            "h-6 w-6 rounded-full",
-            selectedColor === color && "ring-2 ring-offset-2",
+            "h-8 w-8 rounded-md",
+            selectedColor === color && "border border-black",
           )}
           style={{ backgroundColor: color }}
           onClick={() => setColor(color)}

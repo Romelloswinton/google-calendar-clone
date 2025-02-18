@@ -27,7 +27,7 @@ export default function CreateEventPopover({
       isVisible={true}
       onClose={onClose}
       title="Add Event"
-      subtitle={dayjs(date).format("dddd, MMMM D, YYYY")}
+      day={dayjs(date)}
     >
       <EventForm
         formData={formData}

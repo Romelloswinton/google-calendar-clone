@@ -1,12 +1,11 @@
 import React from "react";
-import { HiOutlineMenuAlt2, HiOutlineUsers } from "react-icons/hi";
-
 import Checkbox from "./components/Checkbox";
 import { useEventForm } from "@/lib/hooks/useEventForm";
 import { Button } from "@/components/ui/button";
 import InputField from "./components/InputField";
 import TimeInput from "./components/TimeInput";
 import { ColorPicker } from "./components/ColorPicker";
+
 type FormFields = keyof ReturnType<typeof useEventForm>["formData"];
 
 interface EventFormProps {
@@ -23,17 +22,23 @@ export function EventForm({
   hideSubmitButton = false,
 }: EventFormProps) {
   return (
-    <form className="flex flex-col p-6" onSubmit={onSubmit}>
+    <form className="flex flex-col gap-1 p-4 pt-0" onSubmit={onSubmit}>
+      <label
+        htmlFor="title"
+        className="mt-4 text-sm font-semibold text-gray-800"
+      >
+        Title
+      </label>
       <InputField
         type="text"
         name="title"
-        placeholder="Add title"
+        placeholder=""
         value={formData.title}
         onChange={(e) => onInputChange("title")(e.target.value)}
-        className="my-4 rounded-none border-0 border-b text-2xl focus-visible:border-b-2 focus-visible:border-b-blue-600 focus-visible:ring-0 focus-visible:ring-offset-0"
+        className="rounded-md border border-black text-2xl focus-visible:border-b-2 focus-visible:border-b-blue-600 focus-visible:ring-0 focus-visible:ring-offset-0"
       />
 
-      <div className="flex flex-col gap-4">
+      <div className="mt-2">
         <Checkbox
           id="allDay"
           label="All Day?"
@@ -42,7 +47,7 @@ export function EventForm({
         />
 
         {!formData.isAllDay && (
-          <div className="flex space-x-6">
+          <div className="mb-2 mt-4 flex items-center gap-1">
             <TimeInput
               label="Start Time"
               value={formData.startTime}
@@ -56,31 +61,12 @@ export function EventForm({
             />
           </div>
         )}
-
-        <div className="flex items-center space-x-3">
-          <HiOutlineUsers className="size-5 text-slate-600" />
-          <InputField
-            type="text"
-            name="guests"
-            placeholder="Add guests"
-            value={formData.guests}
-            onChange={(e) => onInputChange("guests")(e.target.value)}
-            className="w-full rounded-lg border-0 bg-slate-100 pl-7 placeholder:text-slate-600 focus-visible:outline-none focus-visible:ring-0"
-          />
-        </div>
-
-        <div className="flex items-center space-x-3">
-          <HiOutlineMenuAlt2 className="size-5 text-slate-600" />
-          <InputField
-            type="text"
-            name="description"
-            placeholder="Add description"
-            value={formData.description}
-            onChange={(e) => onInputChange("description")(e.target.value)}
-            className="w-full rounded-lg border-0 bg-slate-100 pl-7 placeholder:text-slate-600 focus-visible:outline-none focus-visible:ring-0"
-          />
-        </div>
-
+        <label
+          htmlFor="title"
+          className="mb-1 text-sm font-semibold text-gray-800"
+        >
+          Color
+        </label>
         <ColorPicker
           selectedColor={formData.color}
           setColor={(color: string) => onInputChange("color")(color)}
@@ -88,8 +74,15 @@ export function EventForm({
       </div>
 
       {!hideSubmitButton && (
-        <div className="mt-4 flex justify-end space-x-2">
-          <Button type="submit">Save</Button>
+        <div className="mt-5 flex justify-end space-x-2">
+          <Button
+            onClick={(e) => {
+              onSubmit(e);
+            }}
+            className="w-full border border-green-800 bg-green-200 text-green-900"
+          >
+            Add
+          </Button>
         </div>
       )}
     </form>

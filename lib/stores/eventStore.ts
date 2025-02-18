@@ -6,12 +6,10 @@ export type CalendarEventType = {
   id: string;
   title: string;
   date: dayjs.Dayjs;
-  description: string;
   color: string;
   startTime: string;
   endTime: string;
   isAllDay: boolean;
-  guests: string;
 };
 
 // Utility to sort events
