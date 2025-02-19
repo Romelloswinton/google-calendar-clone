@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   handleAnimationComplete,
   handleClose,
-  handlePopoverClick,
   zoom,
 } from "@/lib/utils/eventHandlers";
 import { Button } from "@/components/ui/button";
@@ -28,6 +27,29 @@ export function PopoverLayout({
 }: PopoverLayoutProps) {
   const [isVisible, setIsVisible] = useState(true);
 
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Handler to close the popover if clicked outside
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(e.target as Node)
+      ) {
+        onClose(); // Close the popover when clicked outside
+      }
+    };
+
+    // Add event listener when the popover is open
+    if (isOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    }
+
+    // Cleanup event listener when the component is unmounted or popover closes
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [isOpen, onClose]);
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
@@ -41,6 +63,7 @@ export function PopoverLayout({
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <motion.div
+            ref={popoverRef}
             className="w-full max-w-[345px] overflow-y-auto rounded-lg bg-white shadow-lg"
             onClick={(e) => e.stopPropagation()}
             initial="hidden"

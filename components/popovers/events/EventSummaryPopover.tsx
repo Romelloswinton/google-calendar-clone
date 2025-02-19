@@ -1,6 +1,4 @@
-// Move from components/EventPopover/event-summary-popover.tsx
-// Update imports to match new paths
-import { useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { CalendarEventType, useEventStore } from "@/lib/stores/eventStore";
 import { handleAnimationComplete } from "@/lib/utils/eventHandlers";
@@ -23,13 +21,31 @@ export default function EventSummaryPopover({
   const { updateEvent, removeEvent } = useEventStore();
   const { isVisible, setIsVisible } = usePopover(isOpen);
   const [formData, setFormData] = useState({ ...event });
+  const [isValid, setIsValid] = useState(false);
+
+  const checkFormValidity = () => {
+    if (!formData.isAllDay && (!formData.startTime || !formData.endTime)) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  };
+
+  useEffect(() => {
+    checkFormValidity();
+  }, [formData]);
 
   const handleSave = async () => {
-    setIsVisible(false);
-    await handleAnimationComplete(500);
     updateEvent(formData);
-    onClose();
   };
+
+  // Close with animation
+  const onCloseWithAnimation = useCallback(() => {
+    setIsVisible(false);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  }, [onClose]);
 
   const handleDelete = async () => {
     setIsVisible(false);
@@ -47,12 +63,13 @@ export default function EventSummaryPopover({
     <PopoverLayout
       isOpen={isOpen}
       isVisible={true}
-      onClose={onClose}
+      onClose={onCloseWithAnimation}
       title="Event Details"
       day={dayjs(event.date)}
     >
       <div className="flex flex-col">
         <EventForm
+          onClose={onCloseWithAnimation}
           formData={formData}
           onInputChange={handleInputChange}
           onSubmit={(e) => {
@@ -66,7 +83,12 @@ export default function EventSummaryPopover({
           <div className="flex justify-between gap-2">
             <Button
               className="w-full border border-black bg-green-100 text-green-900 hover:bg-green-100"
-              onClick={handleSave}
+              onClick={(e) => {
+                e.stopPropagation();
+                onCloseWithAnimation();
+                handleSave();
+              }}
+              disabled={!isValid} // Disable Save button if the form is not valid
             >
               Save
             </Button>
@@ -74,6 +96,7 @@ export default function EventSummaryPopover({
               variant="destructive"
               className="w-full border border-black text-black hover:text-black"
               onClick={handleDelete}
+              disabled={!isValid} // Disable Delete button if the form is not valid
             >
               Delete
             </Button>

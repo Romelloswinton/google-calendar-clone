@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { PopoverLayout } from "../layout/PopoverLayout";
 import { EventForm } from "./form/EventForm";
 import { useEventForm } from "@/lib/hooks/useEventForm";
@@ -15,21 +15,30 @@ export default function CreateEventPopover({
   onClose,
   date,
 }: CreateEventPopoverProps) {
-  console.log("CreateEventPopover render - isOpen:", isOpen);
   const { formData, handleInputChange, handleSubmit } = useEventForm(
     date,
     onClose,
   );
 
+  const [isVisible, setIsVisible] = useState(isOpen);
+
+  const onCloseWithAnimation = useCallback(() => {
+    setIsVisible(false);
+    setTimeout(() => {
+      onClose(); // Call the parent's onClose after the animation is complete
+    }, 300); // 300ms timeout, adjust for your animation duration
+  }, [onClose]);
+
   return (
     <PopoverLayout
       isOpen={isOpen}
       isVisible={true}
-      onClose={onClose}
+      onClose={onCloseWithAnimation}
       title="Add Event"
       day={dayjs(date)}
     >
       <EventForm
+        onClose={onCloseWithAnimation}
         formData={formData}
         onInputChange={handleInputChange}
         onSubmit={handleSubmit}
