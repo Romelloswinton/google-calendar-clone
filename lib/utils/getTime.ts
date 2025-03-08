@@ -6,16 +6,29 @@ export const isCurrentDay = (day: dayjs.Dayjs) => {
   return day.isSame(dayjs(), "day");
 };
 
-export const getMonth = (month = dayjs().month()) => {
-  const year = dayjs().year();
-  const firstDayofMonth = dayjs().set("month", month).startOf("month").day();
+export function getMonth(month = dayjs().month(), year = dayjs().year()) {
+  // Get the first day of the month
+  const firstDayOfMonth = dayjs().year(year).month(month).startOf("month");
 
-  let dayCounter = -firstDayofMonth;
+  // Get the day of the week for the first day (0-6, where 0 is Sunday)
+  const firstDayOfMonthWeekday = firstDayOfMonth.day();
 
-  return Array.from({ length: 5 }, () =>
-    Array.from({ length: 7 }, () => dayjs(new Date(year, month, ++dayCounter))),
-  );
-};
+  // Create a 2D array for the calendar (5 rows x 7 columns)
+  const calendar: dayjs.Dayjs[][] = Array(5)
+    .fill(0)
+    .map((_, weekIndex) => {
+      return Array(7)
+        .fill(0)
+        .map((_, dayIndex) => {
+          // Calculate the day offset from the start of the calendar grid
+          const dayOffset = weekIndex * 7 + dayIndex - firstDayOfMonthWeekday;
+          // Add that many days to the first day of the month
+          return firstDayOfMonth.add(dayOffset, "day");
+        });
+    });
+
+  return calendar;
+}
 
 export const getWeekDays = (date: dayjs.Dayjs) => {
   const startOfWeek = date.startOf("week");

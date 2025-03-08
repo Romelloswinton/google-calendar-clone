@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface TimeInputProps {
   label: string;
@@ -15,16 +15,17 @@ export default function TimeInput({
   min,
   max,
 }: TimeInputProps) {
+  const [error, setError] = useState(false);
+
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = e.target.value;
 
-    // If min time is set, validate the new time
     if (min && newTime < min) {
-      // If invalid, set to min time instead
-      onChange(min);
+      setError(true);
       return;
     }
 
+    setError(false);
     onChange(newTime);
   };
 
@@ -39,8 +40,15 @@ export default function TimeInput({
         onChange={handleTimeChange}
         min={min}
         max={max}
-        className="w-[155px] rounded-md border border-black px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className={`w-[155px] rounded-md border px-2 py-1.5 focus:outline-none focus:ring-2 ${
+          error
+            ? "border-red-500 focus:ring-red-500"
+            : "border-black focus:ring-blue-500"
+        }`}
       />
+      <div className="h-4">
+        {error && <p className="text-xs text-red-500">Invalid End Time</p>}
+      </div>
     </div>
   );
 }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Checkbox from "./components/Checkbox";
+import Checkbox from "./Checkbox";
 import { useEventForm } from "@/lib/hooks/useEventForm";
 import { Button } from "@/components/ui/button";
-import InputField from "./components/InputField";
-import TimeInput from "./components/TimeInput";
-import { ColorPicker } from "./components/ColorPicker";
+import InputField from "./InputField";
+import TimeInput from "./TimeInput";
+import { ColorPicker } from "./ColorPicker";
 import { motion, AnimatePresence } from "framer-motion";
-import { zoom } from "@/lib/utils/eventHandlers"; // Ensure zoom animation is imported
+import { zoom } from "@/lib/utils/eventHandlers";
 
 type FormFields = keyof ReturnType<typeof useEventForm>["formData"];
 
@@ -37,7 +37,8 @@ export function EventForm({
       return false; // Require time fields only if "All Day" is NOT checked
     return true;
   };
-  // Handler to close the popover if clicked outside
+
+  // Update form validity when form data changes
   useEffect(() => {
     setFormValid(validateForm());
   }, [formData]);
@@ -60,23 +61,42 @@ export function EventForm({
     }, 300);
   };
 
+  // Generate unique IDs for form elements
+  const formId = "event-form";
+  const titleId = "event-title";
+  const errorId = "form-error-message";
+  const allDayId = "all-day-checkbox";
+  const colorPickerId = "color-picker";
+
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.form
+          id={formId}
           className="flex flex-col gap-1 p-4 pt-0"
           onSubmit={handleSubmit}
           initial="hidden"
           animate={isVisible ? "visible" : "hidden"}
           exit="exit"
-          variants={zoom} // Apply the same zoom animation used in PopoverLayout
+          variants={zoom}
+          aria-labelledby="form-heading"
+          aria-describedby={error ? errorId : undefined}
+          noValidate
         >
+          <h2 id="form-heading" className="sr-only">
+            Event Details Form
+          </h2>
+
           {/* Title Field */}
           <label
-            htmlFor="title"
+            htmlFor={titleId}
             className="mt-4 text-sm font-semibold text-gray-800"
           >
-            Title <span className="text-red-500">*</span>
+            Title{" "}
+            <span className="text-red-500" aria-hidden="true">
+              *
+            </span>
+            <span className="sr-only"> (required)</span>
           </label>
           <InputField
             type="text"
@@ -85,49 +105,76 @@ export function EventForm({
             value={formData.title}
             onChange={(e) => onInputChange("title")(e.target.value)}
             className="rounded-md border border-black text-2xl focus-visible:border-b-2 focus-visible:border-b-blue-600 focus-visible:ring-0 focus-visible:ring-offset-0"
+            aria-required="true"
+            aria-invalid={!formData.title.trim() ? "true" : "false"}
           />
 
           <div className="mt-2">
             {/* All Day Checkbox */}
             <Checkbox
-              id="allDay"
+              id={allDayId}
               label="All Day?"
               checked={formData.isAllDay}
               onChange={(newChecked) => onInputChange("isAllDay")(newChecked)}
+              aria-controls={formData.isAllDay ? "" : "time-inputs-section"}
             />
 
             {/* Time Inputs (Only Show if "All Day" is NOT Checked) */}
             {!formData.isAllDay && (
-              <div className="mb-2 mt-4 flex items-center gap-1">
+              <div
+                id="time-inputs-section"
+                className="mb-2 mt-4 flex items-center gap-1"
+                aria-live="polite"
+              >
                 <TimeInput
                   label="Start Time"
                   value={formData.startTime}
                   onChange={(newTime) => onInputChange("startTime")(newTime)}
+                  aria-required="true"
+                  aria-invalid={!formData.startTime ? "true" : "false"}
                 />
                 <TimeInput
                   label="End Time"
                   value={formData.endTime}
                   onChange={(newTime) => onInputChange("endTime")(newTime)}
                   min={formData.startTime}
+                  aria-required="true"
+                  aria-invalid={!formData.endTime ? "true" : "false"}
                 />
               </div>
             )}
 
             {/* Color Picker */}
             <label
-              htmlFor="color"
+              htmlFor={colorPickerId}
               className="mb-1 text-sm font-semibold text-gray-800"
             >
-              Color <span className="text-red-500">*</span>
+              Color{" "}
+              <span className="text-red-500" aria-hidden="true">
+                *
+              </span>
+              <span className="sr-only"> (required)</span>
             </label>
             <ColorPicker
               selectedColor={formData.color}
               setColor={(color: string) => onInputChange("color")(color)}
+              aria-required="true"
+              aria-invalid={!formData.color ? "true" : "false"}
+              aria-label="Select event color"
             />
           </div>
 
           {/* Error Message */}
-          {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+          {error && (
+            <p
+              id={errorId}
+              className="mt-2 text-sm text-red-500"
+              aria-live="assertive"
+              role="alert"
+            >
+              {error}
+            </p>
+          )}
 
           {/* Submit Button */}
           {!hideSubmitButton && (
@@ -140,6 +187,7 @@ export function EventForm({
                     ? "border-green-800 bg-green-200 text-green-900 hover:bg-green-800 hover:text-white"
                     : "cursor-not-allowed border-gray-400 bg-gray-200 text-gray-500"
                 }`}
+                aria-disabled={!formValid}
               >
                 Add
               </Button>

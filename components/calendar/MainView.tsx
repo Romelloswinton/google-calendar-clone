@@ -1,12 +1,12 @@
 "use client";
 import { useEffect } from "react";
-import { CalendarGrid } from "../calendar/grid/CalendarGrid";
+import { CalendarGrid } from "./CalendarGrid";
 import { useEventStore, CalendarEventType } from "@/lib/stores/eventStore";
 import { useDateStore } from "@/lib/stores/dateStore";
 import { useEventManagement } from "@/lib/hooks/useEventManagement";
-import CreateEventPopover from "@/components/popovers/events/CreateEventPopover";
-import EventListPopover from "@/components/popovers/events/EventListPopover";
-import EventSummaryPopover from "@/components/popovers/events/EventSummaryPopover";
+import CreateEventPopover from "@/components/popovers/CreateEventPopover";
+import EventListPopover from "@/components/popovers/EventListPopover";
+import EventSummaryPopover from "@/components/popovers/EventSummaryPopover";
 import dayjs from "dayjs";
 
 export function MainView() {
@@ -52,36 +52,34 @@ export function MainView() {
   return (
     <div className="flex justify-center">
       <div className="w-full max-w-[1500px]">
-        <div className="flex">
-          <div className="w-full flex-1">
-            <CalendarGrid />
-          </div>
-
-          {isPopoverOpen && (
-            <CreateEventPopover
-              isOpen={isPopoverOpen}
-              onClose={closePopover}
-              date={userSelectedDate.format("YYYY-MM-DD")}
-            />
-          )}
-
-          {isEventSummaryOpen && selectedEvent && (
-            <EventSummaryPopover
-              isOpen={isEventSummaryOpen}
-              onClose={closeEventSummary}
-              event={selectedEvent}
-            />
-          )}
-
-          {isEventListPopoverOpen && eventListDay && (
-            <EventListPopover
-              events={events}
-              day={eventListDay}
-              isOpen={isEventListPopoverOpen}
-              onClose={closeEventListPopover}
-            />
-          )}
+        <div className="w-full flex-1">
+          <CalendarGrid />
         </div>
+
+        {isPopoverOpen && (
+          <CreateEventPopover
+            isOpen={isPopoverOpen}
+            onClose={closePopover}
+            date={userSelectedDate.format("YYYY-MM-DD")}
+          />
+        )}
+
+        {isEventSummaryOpen && selectedEvent && (
+          <EventSummaryPopover
+            isOpen={isEventSummaryOpen}
+            onClose={closeEventSummary}
+            event={selectedEvent}
+          />
+        )}
+
+        {isEventListPopoverOpen && eventListDay && (
+          <EventListPopover
+            events={events}
+            day={eventListDay}
+            isOpen={isEventListPopoverOpen}
+            onClose={closeEventListPopover}
+          />
+        )}
       </div>
     </div>
   );

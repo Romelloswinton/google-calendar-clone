@@ -1,6 +1,6 @@
 "use client";
 
-import { MainView } from "@/components/layout/MainView";
+import { MainView } from "@/components/calendar/MainView";
 import Header from "@/components/header/Header";
 
 export default function Home() {

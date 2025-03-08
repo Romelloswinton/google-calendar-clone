@@ -3,8 +3,8 @@ import dayjs from "dayjs";
 import { CalendarEventType, useEventStore } from "@/lib/stores/eventStore";
 import { handleAnimationComplete } from "@/lib/utils/eventHandlers";
 import { usePopover } from "@/lib/hooks/usePopover";
-import { EventForm } from "./form/EventForm";
-import { PopoverLayout } from "../layout/PopoverLayout";
+import { EventForm } from "../Forms/EventForm";
+import { PopoverLayout } from "./PopoverLayout";
 import { Button } from "@/components/ui/button";
 
 interface EventSummaryPopoverProps {
@@ -35,7 +35,7 @@ export default function EventSummaryPopover({
     checkFormValidity();
   }, [formData]);
 
-  const handleSave = async () => {
+  const handleSave = () => {
     updateEvent(formData);
   };
 
@@ -45,7 +45,7 @@ export default function EventSummaryPopover({
     setTimeout(() => {
       onClose();
     }, 300);
-  }, [onClose]);
+  }, [onClose, setIsVisible]);
 
   const handleDelete = async () => {
     setIsVisible(false);
@@ -62,7 +62,6 @@ export default function EventSummaryPopover({
   return (
     <PopoverLayout
       isOpen={isOpen}
-      isVisible={true}
       onClose={onCloseWithAnimation}
       title="Event Details"
       day={dayjs(event.date)}
@@ -88,7 +87,7 @@ export default function EventSummaryPopover({
                 onCloseWithAnimation();
                 handleSave();
               }}
-              disabled={!isValid} // Disable Save button if the form is not valid
+              disabled={!isValid}
             >
               Save
             </Button>
@@ -96,7 +95,6 @@ export default function EventSummaryPopover({
               variant="destructive"
               className="w-full border border-black text-black hover:text-black"
               onClick={handleDelete}
-              disabled={!isValid} // Disable Delete button if the form is not valid
             >
               Delete
             </Button>

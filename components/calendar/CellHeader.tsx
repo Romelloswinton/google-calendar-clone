@@ -17,11 +17,15 @@ export function CellHeader({
 }: CellHeaderProps) {
   if (!day) return null;
 
+  const dayOfMonth = day.date();
+  const dayName = day.format("ddd").toUpperCase();
+  const fullDate = day.format("MMMM D, YYYY");
+
   return (
-    <div className="flex flex-col items-center pt-2">
+    <div className="flex flex-col items-center pt-2" role="presentation">
       {rowIndex === 0 && (
-        <h4 className="text-xs text-gray-500">
-          {day.format("ddd").toUpperCase()}
+        <h4 className="text-xs text-gray-500" aria-hidden="true">
+          {dayName}
         </h4>
       )}
       <h4
@@ -32,8 +36,11 @@ export function CellHeader({
             : isToday &&
                 "flex h-8 w-8 items-center justify-center rounded-full border border-blue-600 text-blue-600",
         )}
+        aria-label={fullDate}
+        aria-current={isToday ? "date" : undefined}
+        aria-selected={isSelectedDate}
       >
-        {day.date()}
+        {dayOfMonth}
       </h4>
     </div>
   );

@@ -1,64 +1,117 @@
-Google Calendar Clone
-This project is a simplified clone of Google Calendar, built using TypeScript, React, and CSS/Tailwind for styling. The goal of this project is to recreate core features of Google Calendar, including event management, month navigation, and modal interactions.
+## Google Calendar Clone
 
-Features
-Monthly View: A calendar that displays the current month by default with buttons for navigation.
-Event Creation: Add new events with name, time, and color selection.
-Edit Events: Modify event details or delete them through a modal.
-Event Overflow Handling: If a day has too many events, a "More" button appears to view all events for that day.
-Persistence: Events are stored in localStorage to persist data on page refresh.
-Responsive Design: The calendar adapts well to mobile and desktop screen sizes.
-Modal Animations: Smooth transitions for opening and closing modals.
+A modern, responsive web application that replicates the core functionality of Google Calendar using Next.js and React.
+📅 Overview
+This project is a front-end implementation of a Google Calendar-like interface, focusing on providing a seamless user experience for managing events and schedules. Built with Next.js 15 and React 19, it leverages modern web technologies to create a responsive and interactive calendar application.
 
-Project Breakdown
-Technologies Used
-TypeScript: Type-safe JavaScript for better code quality and tooling.
-React: UI library to build reusable components and manage state.
-Next.js: React framework to simplify building React applications.
-Tailwind CSS: Utility-first CSS framework for styling.
-Day.js: A lightweight date manipulation library.
+### ✨ Features
 
-Features Implemented
-Rendering the Current Month: Displays the current month's calendar with a button to navigate between months and to return to the current month.
-Event Management: Allows adding, editing, and deleting events.
-Event Modal: The modal has fields for the event name, start time, end time, color, and whether it's an all-day event.
-Event Overflow: Displays a "More" button when the events for a day exceed the calendar’s space.
-Persistent Storage: Events are saved in localStorage, ensuring that they persist across page reloads.
-Accessibility: Focuses on ensuring that all elements are keyboard-navigable and screen-reader friendly.
-Getting Started
-To run the project locally, follow these steps:
+Interactive calendar interface
+Day, week, and month views
+Event creation and management
+Drag and drop functionality for events
+Responsive design for all device sizes
+Real-time UI updates using Framer Motion animations
 
-Prerequisites
-Ensure that you have Node.js and npm installed. You can download them from the official site: https://nodejs.org.
+### 🛠️ Technology Stack
 
-Installation
-Clone the repository to your local machine:
-git clone https://github.com/Romelloswinton/google-calendar-clone.git
-cd google-calendar-clone
-Install dependencies:
-npm install
-Run the project:
-npm start
-This will launch the development server and open the app in your default browser.
+Next.js 15: React framework with file-based routing
+React 19: For building the user interface
+TypeScript: For type safety and better developer experience
+Tailwind CSS: For styling and responsive design
+Radix UI: For accessible UI components
+Zustand: For state management
+dayjs: For date manipulation and formatting
+Framer Motion: For smooth animations and transitions
+Lucide React & React Icons: For UI icons
 
-Directory Structure
-app/: Contains all the project’s source code.
-components/: Includes reusable components like the calendar, modal, and event elements.
-lib/: Stores the hooks used for event and date management.
-styles/: Contains the styling files (Tailwind CSS, custom styles).
-public/: Holds static assets like images and the index.html file.
+## 📱 Screenshots
 
-Features to Be Implemented
-Drag-and-drop events: Drag events to a different day or time.
-Recurring events: Add functionality for recurring events.
-Google Calendar API Sync: Integration to sync events with Google Calendar.
-Known Issues
-Mobile responsiveness may require additional adjustments in certain breakpoints.
-Contributing
-Feel free to fork this project and submit issues or pull requests. Contributions are always welcome!
+![Calendar View](./screenshots/calendar-view.png)
+![Add Event](./screenshots/Add-Event.png)
+![Event Details Popover](./screenshots/Event-Details.png)
+![Event List Popover](./screenshots/Event-List.png)
+![Mobile View](./screenshots/Mobile-View.png)
 
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+### 🚀 Getting Started
 
-Acknowledgments
-Special thanks to the course instructor and community resources for guidance throughout this project.
+#### Prerequisites
+
+Node.js 18.x or higher
+npm or yarn
+
+#### Installation
+
+1. Clone the repository:
+   git clone https://github.com/yourusername/google-calendar-clone.git
+   cd google-calendar-clone
+
+2. Install dependencies:
+   npm install
+
+   # or
+
+   yarn install
+
+3. Start the development server:
+   npm run dev
+
+   # or
+
+   yarn dev
+
+4. Open http://localhost:3000 in your browser to see the application.
+
+#### 🔧 Scripts
+
+- npm run dev: Starts the development server with Turbopack
+
+### 🏗️ Project Structure
+
+```
+src/
+├── components/           🧩 UI Building Blocks
+│   ├── Calendar/         📅 Calendar Components
+│   ├── Header/           🎯 App Navigation
+│   ├── Popovers/         💬 Interactive Dialogs
+│   └── Forms/            📝 Input Components
+├── lib/
+    ├── hooks/             🪝 Custom Logic
+    ├── store/            📦 State Management
+    └── utils/            🛠️ Helper Functions
+```
+
+#### Development Notes
+
+This is a front-end only implementation without backend integration
+UI components are built with Radix UI for accessibility
+State management is handled with Zustand
+The project uses the App Router feature of Next.js 15
+
+### 🧩 Key Components
+
+Calendar Views: Implements day, week, and month views similar to Google Calendar
+Event Management: Create, edit, and delete events
+Time Grid: Visual representation of time slots
+Navigation: Easy navigation between dates and views
+Event Modals: Interactive modals for event details
+
+### 🎨 UI/UX
+
+Clean, minimal design inspired by Google Calendar
+Responsive layout that works on desktop, tablet, and mobile
+Smooth animations for transitions and user interactions
+Accessible components following WCAG guidelines
+
+### 🏗️ Future Improvements
+
+Add authentication system
+Implement recurring events
+Add notifications and reminders
+Enable calendar sharing functionality
+Add dark mode support
+Implement time zone support
+
+### 📄 License
+
+This project is for educational purposes. All rights reserved.
